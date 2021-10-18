@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello user</title>
+</head>
+<body>
+<div>
+    Hello <a th:text="${user.getName()}">Name</a>, your age is <a th:text="${user.getAge()}">Age</a>, you e-Mail is <a th:text="${user.getEmail()}">Email</a>
+</div>
+<br/>
+<form method="GET" action="/logout">
+    <input type="submit" value="Log Out"/>
+</form>
+</body>
+</html>

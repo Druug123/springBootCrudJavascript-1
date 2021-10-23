@@ -27,11 +27,10 @@ public class DaoInit {
         this.roleService = roleService;
     }
 
-
     @PostConstruct
     private void createUsers(){
-        roleService.saveRole(new Role("ROLE_ADMIN"));
-        roleService.saveRole(new Role("ROLE_USER"));
+        roleService.saveRole(new Role("ADMIN"));
+        roleService.saveRole(new Role("USER"));
         Set<Role> rolesAdmin = new HashSet<>(roleService.getAllRoles());
         userService.create(new User("admin", "admin", 99, "admin@admin.com", rolesAdmin));
         Set<Role> rolesUser = new HashSet<>();

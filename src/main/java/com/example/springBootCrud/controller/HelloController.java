@@ -1,6 +1,5 @@
 package com.example.springBootCrud.controller;
 
-
 import com.example.springBootCrud.model.Role;
 import com.example.springBootCrud.model.User;
 import com.example.springBootCrud.service.RoleService;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.HashSet;
 import java.util.Set;
 

@@ -1,6 +1,5 @@
 package com.example.springBootCrud.controller;
 
-
 import com.example.springBootCrud.model.Role;
 import com.example.springBootCrud.model.User;
 import com.example.springBootCrud.service.RoleService;
@@ -9,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,16 +27,12 @@ public class AdminController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
         model.addAttribute("users", userService.index());
-        model.addAttribute("user", new User());
-        return "admin/index";
-    }
-
-    @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/new";
+        model.addAttribute("user",
+                userService.getUserByName(principal.getName()));
+        return "admin/index";
     }
 
     @PostMapping
@@ -51,13 +46,6 @@ public class AdminController {
         user.setRoles(roles);
         userService.create(user);
         return "redirect:/admin";
-    }
-
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") long id) {
-        model.addAttribute("user", userService.show(id));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/edit";
     }
 
     @PatchMapping("/{id}")

@@ -27,6 +27,7 @@ public class DaoInit {
         this.roleService = roleService;
     }
 
+
     @PostConstruct
     private void createUsers(){
         roleService.saveRole(new Role("ROLE_ADMIN"));

@@ -28,6 +28,6 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public void saveRole(Role role){
-        entityManager.merge(role);
+        entityManager.persist(role);
     }
 }

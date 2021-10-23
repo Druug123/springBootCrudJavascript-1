@@ -41,10 +41,12 @@ public class AdminController {
     }
 
     @PostMapping
-    public String createUser(@ModelAttribute("user") User user, @RequestParam(value = "roleList") long[] roleList) {
+    public String createUser(@ModelAttribute("user") User user, @RequestParam(value = "roleList", required = false) long[] roleList) {
         Set<Role> roles = new HashSet<>();
-        for (long roleId : roleList){
-            roles.add(roleService.getRoleById(roleId));
+        if (roleList != null) {
+            for (long roleId : roleList) {
+                roles.add(roleService.getRoleById(roleId));
+            }
         }
         user.setRoles(roles);
         userService.create(user);
@@ -59,10 +61,12 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @RequestParam(value = "roleList") long[] roleList) {
+    public String update(@ModelAttribute("user") User user, @RequestParam(value = "roleList", required = false) long[] roleList) {
         Set<Role> roles = new HashSet<>();
-        for (long roleId : roleList){
-            roles.add(roleService.getRoleById(roleId));
+        if (roleList != null) {
+            for (long roleId : roleList) {
+                roles.add(roleService.getRoleById(roleId));
+            }
         }
         user.setRoles(roles);
         userService.update(user);

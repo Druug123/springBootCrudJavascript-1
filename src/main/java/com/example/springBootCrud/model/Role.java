@@ -1,5 +1,8 @@
 package com.example.springBootCrud.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +21,8 @@ public class Role implements GrantedAuthority {
 
     private String role;
 
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 

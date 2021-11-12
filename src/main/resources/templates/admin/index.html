@@ -61,7 +61,7 @@
                     </table>
                 </div>
                 <!-- Edit user-->
-                <div class="modal fade" th:id="${'edit' + user.id}" aria-hidden="true"
+                <div class="modal fade" id="editModal" aria-hidden="true"
                      role="dialog" >
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -74,34 +74,28 @@
                             <div class="modal-body">
                                 <div style="text-align: center;">
                                     <div class="row justify-content-center align-items-center">
-                                        <form class="text-center" th:action="@{/admin/{id}(id=${user.getId()})}"
-                                              th:object="${user}"
-                                              th:method="PATCH" th:id="${'editForm' + user.id}">
+                                        <form class="text-center" method="post" id="editUserForm">
                                             <div class="form-group font-weight-bold">
                                                 <label for="id">ID</label>
                                                 <input type="number" class="form-control" id="id"
-                                                       name="id" th:value="${user.getId}" readonly>
+                                                       name="id" readonly>
                                                 <label for="editName">Name</label>
                                                 <input type="text" class="form-control" id="editName"
-                                                       name="name" th:value="${user.getName}">
+                                                       name="name" >
                                                 <label for="editAge">Age</label>
                                                 <input type="number" class="form-control" id="editAge"
-                                                       name="age" th:value="${user.getAge}">
+                                                       name="age" >
                                                 <label for="editEmail">Email</label>
                                                 <input type="email" class="form-control" id="editEmail"
-                                                       name="email" th:value="${user.getEmail}">
+                                                       name="email" >
                                                 <label for="editPassword">Password</label>
                                                 <input type="password" class="form-control"
                                                        id="editPassword"
-                                                       name="password" th:value="${user.getPassword}">
-
-                                                <label for="editRole">Role</label>
-                                                <select class="form-select w-100" size="2" id="editRole"
-                                                        name="roleList" multiple="multiple">
-                                                    <option th:each="role : ${roles}"
-                                                            th:value="${role.getId}"
-                                                            th:text="${role.getRole}"
-                                                    ></option>
+                                                       name="password" >
+                                                <select class="form-select w-100" size="2" id="SelectedRolesEdit"
+                                                        name="SelectedRolesEdit" multiple="multiple">
+                                                    <option id ="optionEditUser">User</option>
+                                                    <option id ="optionEditAdmin">Admin</option>
                                                 </select>
                                             </div>
                                         </form>
@@ -112,13 +106,13 @@
                                 <button type="button" class="btn btn-secondary"
                                         data-dismiss="modal">Close
                                 </button>
-                                <input type="submit" th:form="${'editForm' + user.id}" class="btn btn-primary" value="Edit"/>
+                                <input type="submit" id="editButton" class="btn btn-primary" value="Edit"/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--Delete user-->
-                <div class="modal fade" th:id="${'delete' + user.id}" aria-hidden="true"
+                <div class="modal fade" id="deleteModal" aria-hidden="true"
                      role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -131,32 +125,31 @@
                             <div class="modal-body">
                                 <div style="text-align: center;">
                                     <div class="row justify-content-center align-items-center">
-                                        <form class="text-center" th:action="@{/admin/{id}(id=${user.getId()})}"
-                                              th:object="${user}" th:method="DELETE"
-                                              th:id="${'deleteForm' + user.id}">
+                                        <form class="text-center" method="DELETE"
+                                              id="deleteUserForm">
                                             <div class="form-group font-weight-bold">
                                                 <label for="delId">ID</label>
                                                 <input type="number" class="form-control" id="delId"
-                                                       name="id" th:value="${user.getId}" readonly>
+                                                       name="id"  readonly>
                                                 <label for="delName">Name</label>
                                                 <input type="text" class="form-control" id="delName"
-                                                       name="name" th:value="${user.getName}" readonly>
+                                                       name="name"  readonly>
                                                 <label for="delAge">Age</label>
                                                 <input type="number" class="form-control" id="delAge"
-                                                       name="age" th:value="${user.getAge}" readonly>
+                                                       name="age"  readonly>
                                                 <label for="delEmail">Email</label>
                                                 <input type="email" class="form-control" id="delEmail"
-                                                       name="email" th:value="${user.getEmail}" readonly>
+                                                       name="email"  readonly>
                                                 <label for="delPassword">Password</label>
                                                 <input type="password" class="form-control"
                                                        id="delPassword"
-                                                       name="password" th:value="${user.getPassword}" readonly>
+                                                       name="password"  readonly>
 
                                                 <label for="delRole">Role</label>
                                                 <select class="form-select w-100" size="2" id="delRole"
-                                                        name="roleList" disabled="true">
-                                                    <option th:each="role : ${roles}"
-                                                            th:text="${role.getRole}"></option>
+                                                        name="roleList" multiple="multiple">
+                                                    <option id ="optionDeleteUser">User</option>
+                                                    <option id ="optionDeleteAdmin">Admin</option>
                                                 </select>
                                             </div>
                                         </form>
@@ -167,7 +160,7 @@
                                 <button type="button" class="btn btn-secondary"
                                         data-dismiss="modal">Close
                                 </button>
-                                <input type="submit" th:form="${'deleteForm' + user.id}" class="btn btn-danger" value="Delete"/>
+                                <input type="submit" id="deleteButton" class="btn btn-danger" value="Delete"/>
                             </div>
                         </div>
                     </div>
@@ -176,7 +169,7 @@
                 <div class="tab-pane fade" id="new" role="tabpanel" >
                     <h5 class="card-header">Add new user</h5>
                     <div class="row justify-content-center align-items-center">
-                        <form class="text-center" th:action="@{/admin}" th:object="${user}" method="post">
+                        <form class="text-center">
                             <div class="form-group font-weight-bold">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control" id="name" name="name"
@@ -192,13 +185,11 @@
                                 <label for="role">Role</label>
                                 <select class="form-select w-100" size="2" id="role"
                                         name="roleList" multiple="multiple">
-                                    <option th:each="role : ${roles}"
-                                            th:value="${role.getId}"
-                                            th:text="${role.getRole}"
-                                    ></option>
+                                    <option id ="optionAddUser">User</option>
+                                    <option id ="optionAddAdmin">Admin</option>
                                 </select>
 
-                                <button type="submit" class="btn btn-success">Add new user</button>
+                                <button type="submit" class="btn btn-success" id="addNewUserButton">Add new user</button>
                             </div>
                         </form>
                     </div>

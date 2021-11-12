@@ -23,6 +23,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User user) {
+        System.out.println(user);
+        System.out.println(user.getAuthorities());
         entityManager.persist(user);
     }
 

@@ -2,20 +2,20 @@ $(document).ready(function () {
     getAllUsers();
 });
 
-let roleList = []; // глобальная переменная для хранения массива ролей
+let roleList = [];
 
 
 function getAllUsers() {
-    $.getJSON("http://localhost:8080/api/users", function (data) { // по ссылки получаем юзеров и добавляем их в дата
-        console.log('1) данные с бэка /allUsers: ', JSON.stringify(data)) // для проверки в консоли
+    $.getJSON("http://localhost:8080/api/users", function (data) {
+        console.log('1) данные с бэка /allUsers: ', JSON.stringify(data))
         let rows = '';
-        for (let i = 0; i < data.length; i++) { // проходимся по юзерам (получаем юзар)
-            rows += createRows(data[i]); // из цикла полученного юзера добавляем в строку
+        for (let i = 0; i < data.length; i++) {
+            rows += createRows(data[i]);
         }
         ;
-        $('#tableAllUsers').append(rows); //строку добавляем в таблицу
+        $('#tableAllUsers').append(rows);
 
-//         // получение ролей по url из json, добовляем в массив ролей
+
         $.ajax({
             url: '/api/authorities',
             method: 'GET',
@@ -27,7 +27,7 @@ function getAllUsers() {
     });
 }
 
-//метод создания строк для таблицы
+
 function createRows(user) {
 
     let json = JSON.stringify(user);
@@ -72,7 +72,7 @@ $("#admin-tab").click(function () {
     getAllUsers()
 });
 
-//заполняем данные и отправляем post запрос
+
 $("#addNewUserButton").click(function (event) {
 
     let roles2;
